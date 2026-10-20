@@ -39,7 +39,7 @@ const productos = [
   {
     nombre: "Vela colombiana pastel x 10 (Virgen del Carmen)",
     desc: ["Caja Virgen del Carmen con 10 velas colombianas en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","19.000"],
+    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","$19.000"],
     imgs: ["img/virgencolombiana3.png", "img/virgencolombiana.png", "img/virgencolombiana2.png"]
   }
 ];
