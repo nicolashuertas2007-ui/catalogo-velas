@@ -99,7 +99,7 @@ const disenos = [
   },
   {
     nombre: "Deseos dorados",
-    desc: ["Deseos en dorado con corazones y estrellas. "],
+    desc: ["Deseos en dorado con corazones y estrellas."],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosdorados.png"]
   },
