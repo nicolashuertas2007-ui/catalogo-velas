@@ -34,11 +34,15 @@ const productos = [
   {
     nombre: "Vela colombiana pastel x 10 (Virgen del Carmen)",
     desc: ["Caja Virgen del Carmen con 10 velas colombianas en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","$19.000"],
+    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","19.000"],
     imgs: ["img/virgencolombiana3.png", "img/virgencolombiana.png", "img/virgencolombiana2.png"]
   }
 ];
 
+/* ============================================================
+   DISEÑOS
+   Una sola imagen por diseño.
+   ============================================================ */
 const disenos = [
   {
     nombre: "Animalitos navideños",
@@ -72,7 +76,7 @@ const disenos = [
   },
   {
     nombre: "Vírgenes",
-    desc: ["Virgenes sobre trazos de colores."],
+    desc: ["Advocaciones de la Virgen sobre trazos de colores."],
     detalles: ["Palabras: Sabiduría, Éxitos, Unión, Viajes, Salud, Prosperidad, Felicidad, Abundancia, Amor, Trabajo"],
     imgs: ["img/virgenes.png"]
   },
