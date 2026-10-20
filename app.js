@@ -1,8 +1,3 @@
-/* ============================================================
-   CAJAS DE VELAS
-   Las fotos del mismo producto van juntas en imgs.
-   La primera foto es la que se ve en la tarjeta.
-   ============================================================ */
 const EXTRA = "Puedes escoger cualquiera de nuestros diseños para decorarlas.";
 
 const productos = [
@@ -44,10 +39,6 @@ const productos = [
   }
 ];
 
-/* ============================================================
-   DISEÑOS
-   Una sola imagen por diseño.
-   ============================================================ */
 const disenos = [
   {
     nombre: "Animalitos navideños",
