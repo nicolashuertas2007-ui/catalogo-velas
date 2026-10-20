@@ -81,7 +81,7 @@ const disenos = [
   },
   {
     nombre: "Vírgenes",
-    desc: ["Advocaciones de la Virgen sobre trazos de colores."],
+    desc: ["Virgenes sobre trazos de colores."],
     detalles: ["Palabras: Sabiduría, Éxitos, Unión, Viajes, Salud, Prosperidad, Felicidad, Abundancia, Amor, Trabajo"],
     imgs: ["img/virgenes.png"]
   },
@@ -93,19 +93,19 @@ const disenos = [
   },
   {
     nombre: "Deseos blancos",
-    desc: ["Deseos en blanco."],
+    desc: ["Deseos en blanco con corazones y estrellas."],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosblancos.png"]
   },
   {
     nombre: "Deseos dorados",
-    desc: ["Deseos en dorado "],
+    desc: ["Deseos en dorado con corazones y estrellas. "],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosdorados.png"]
   },
   {
     nombre: "Deseos negros",
-    desc: ["Deseos en negro."],
+    desc: ["Deseos en negro con corazones y estrellas."],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosnegros.png"]
   }
