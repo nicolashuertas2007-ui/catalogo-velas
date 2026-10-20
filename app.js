@@ -39,7 +39,7 @@ const productos = [
   {
     nombre: "Vela colombiana pastel x 10 (Virgen del Carmen)",
     desc: ["Caja Virgen del Carmen con 10 velas colombianas en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel"],
+    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","19.000"],
     imgs: ["img/virgencolombiana3.png", "img/virgencolombiana.png", "img/virgencolombiana2.png"]
   }
 ];
@@ -93,19 +93,19 @@ const disenos = [
   },
   {
     nombre: "Deseos blancos",
-    desc: ["Frases de deseos en blanco con corazones y estrellas."],
+    desc: ["Deseos en blanco."],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosblancos.png"]
   },
   {
     nombre: "Deseos dorados",
-    desc: ["Frases de deseos en dorado con corazones y estrellas."],
+    desc: ["Deseos en dorado "],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosdorados.png"]
   },
   {
     nombre: "Deseos negros",
-    desc: ["Frases de deseos en negro con corazones y estrellas."],
+    desc: ["Deseos en negro."],
     detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosnegros.png"]
   }
