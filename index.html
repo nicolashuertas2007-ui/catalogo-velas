@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo velas 2026</title>
+    <link rel="stylesheet" href="velas.css">
+</head>
+<body>
+    <header class="titulo">
+        <h1>Catálogo velas 2026</h1>
+    </header>
+
+    <!-- Cajas de velas -->
+    <section class="contenedor" id="sec-cajas" aria-labelledby="t-cajas">
+        <h2 class="seccion-titulo" id="t-cajas">Cajas de velas</h2>
+        <div id="productos" class="rejilla"></div>
+    </section>
+
+    <!-- Diseños -->
+    <section class="contenedor" id="sec-disenos" aria-labelledby="t-disenos">
+        <h2 class="seccion-titulo" id="t-disenos">Diseños</h2>
+        <p class="seccion-sub">Escoge el diseño que más te guste para tu caja de velas.</p>
+        <div id="disenos" class="rejilla"></div>
+    </section>
+
+    <!-- Ventana con la información -->
+    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitulo">
+        <div class="ventana">
+            <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
+            <img id="grande" alt="">
+            <div class="miniaturas" id="miniaturas"></div>
+            <h2 id="mTitulo"></h2>
+            <div id="mDesc"></div>
+            <ul id="mLista"></ul>
+            <button class="pedir" id="pedir">Elegir esta vela</button>
+        </div>
+    </div>
+
+    <!-- Barra de pedido -->
+    <div id="pedido" class="pedido" hidden>
+        <div class="pedido-datos">
+            <div><b>Vela:</b> <span id="pVela"></span></div>
+            <div><b>Diseño:</b> <span id="pDiseno"></span></div>
+        </div>
+        <div class="pedido-botones">
+            <button id="limpiar" class="secundario">Borrar</button>
+            <button id="enviar" class="pedir">Pedir por WhatsApp</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
