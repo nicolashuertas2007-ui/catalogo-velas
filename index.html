@@ -11,6 +11,12 @@
         <h1>Catálogo velas 2026</h1>
     </header>
 
+    <div class="barra-carrito">
+        <button id="botonCarrito" class="boton-carrito" aria-expanded="false" aria-controls="panelCarrito">
+            🛒 Carrito: <span id="contadorCarrito">0</span>
+        </button>
+    </div>
+
     <!-- Cajas de velas -->
     <section class="contenedor" id="sec-cajas" aria-labelledby="t-cajas">
         <h2 class="seccion-titulo" id="t-cajas">Cajas de velas</h2>
@@ -37,7 +43,7 @@
         </div>
     </div>
 
-    <!-- Barra de pedido -->
+    <!-- Barra de selección actual -->
     <div id="pedido" class="pedido" hidden>
         <div class="pedido-datos">
             <div><b>Vela:</b> <span id="pVela"></span></div>
@@ -45,9 +51,26 @@
         </div>
         <div class="pedido-botones">
             <button id="limpiar" class="secundario">Borrar</button>
-            <button id="enviar" class="pedir">Pedir por WhatsApp</button>
+            <button id="agregar" class="pedir">Agregar al carrito</button>
         </div>
     </div>
+
+    <!-- Carrito -->
+    <div id="fondo" class="fondo" hidden></div>
+    <aside id="panelCarrito" class="panel-carrito" aria-label="Carrito de compras" hidden>
+        <div class="panel-encabezado">
+            <h2>Tu carrito</h2>
+            <button id="cerrarCarrito" class="boton-cerrar" aria-label="Cerrar carrito">&times;</button>
+        </div>
+        <ul id="listaCarrito" class="lista-carrito"></ul>
+        <div class="panel-pie">
+            <p class="total">Total <strong id="totalCarrito">$0</strong></p>
+            <button id="pedirCarrito" class="pedir">Pedir por WhatsApp</button>
+            <button id="vaciarCarrito" class="secundario">Vaciar carrito</button>
+        </div>
+    </aside>
+
+    <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
 
     <script src="app.js"></script>
 </body>

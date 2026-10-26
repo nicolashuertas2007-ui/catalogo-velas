@@ -1,3 +1,8 @@
+/* ============================================================
+   CAJAS DE VELAS
+   Las fotos del mismo producto van juntas en imgs.
+   La primera foto es la que se ve en la tarjeta.
+   ============================================================ */
 const EXTRA = "Puedes escoger cualquiera de nuestros diseños para decorarlas.";
 
 const productos = [
@@ -34,7 +39,7 @@ const productos = [
   {
     nombre: "Vela colombiana pastel x 10 (Virgen del Carmen)",
     desc: ["Caja Virgen del Carmen con 10 velas colombianas en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel","19.000"],
+    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel", "$16.000"],
     imgs: ["img/virgencolombiana3.png", "img/virgencolombiana.png", "img/virgencolombiana2.png"]
   }
 ];
@@ -70,8 +75,11 @@ const disenos = [
   },
   {
     nombre: "Pesebre dorado",
-    desc: ["Personajes del pesebre en línea dorada."],
-    detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud"],
+    extra: 1000,
+    desc: ["Personajes del pesebre en línea dorada.",
+           "Tiene un valor adicional de $1.000 porque son con relieve."],
+    detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud",
+                "Valor adicional: $1.000 (por caja)"],
     imgs: ["img/pesebredorado.png"]
   },
   {
@@ -94,8 +102,11 @@ const disenos = [
   },
   {
     nombre: "Deseos dorados",
-    desc: ["Deseos en dorado con corazones y estrellas."],
-    detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
+    extra: 1000,
+    desc: ["Deseos en dorado con corazones y estrellas.",
+           "Tiene un valor adicional de $1.000 porque son con relieve."],
+    detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría",
+               "Valor adicional: $1.000 (por caja)"],
     imgs: ["img/deseosdorados.png"]
   },
   {
@@ -106,22 +117,162 @@ const disenos = [
   }
 ];
 
+/* Precio: se toma de la línea "$9.500" dentro de detalles (si no hay, queda "por confirmar") */
+productos.forEach(p => {
+  const linea = p.detalles.find(d => /^\$/.test(d));
+  p.precio = linea ? Number(linea.replace(/\D/g, "")) : null;
+});
+
 const $ = id => document.getElementById(id);
+const pesos = new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 });
+const SIN_IMAGEN = "data:image/svg+xml;utf8," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="100%" height="100%" fill="#fffaf2"/><text x="50%" y="50%" fill="#9b0d24" font-family="sans-serif" font-size="20" text-anchor="middle">Sin imagen</text></svg>'
+);
+// Si una foto no carga (nombre mal escrito, etc.) se muestra un cuadro de respaldo
+document.addEventListener("error", e => {
+  if (e.target.tagName === "IMG" && e.target.src !== SIN_IMAGEN) e.target.src = SIN_IMAGEN;
+}, true);
+
 let actual = null;
 let actualI = 0;
 let tipo = "producto";
 let sel = 0;
 
-/* ---------- Selección: una vela y un diseño ---------- */
+/* ============================================================
+   SELECCIÓN ACTUAL (una vela + un diseño) y CARRITO
+   ============================================================ */
 const seleccion = { producto: null, diseno: null };
 
-/* ---------- Pintar las tarjetas ---------- */
+function cargarCarrito() {
+  try {
+    const datos = JSON.parse(localStorage.getItem("carritoVelas")) || [];
+    // descarta lo que ya no exista en el catálogo
+    return datos.filter(it => productos.some(p => p.nombre === it.v) &&
+                              (it.d === null || disenos.some(d => d.nombre === it.d)));
+  } catch { return []; }
+}
+function guardarCarrito() {
+  try { localStorage.setItem("carritoVelas", JSON.stringify(carrito)); } catch {}
+}
+let carrito = cargarCarrito();
+
+const precioDe = nombre => productos.find(p => p.nombre === nombre).precio;
+const extraDe = nombre => { const d = disenos.find(x => x.nombre === nombre); return (d && d.extra) || 0; };
+// Precio por unidad = vela + adicional del diseño (si lo tiene)
+function precioUnit(it) {
+  const pr = precioDe(it.v);
+  return pr === null ? null : pr + extraDe(it.d);
+}
+// Nombre del diseño, con el adicional si aplica
+function textoDiseno(it) {
+  const ex = extraDe(it.d);
+  return it.d + (ex ? " (+" + pesos.format(ex) + " c/u)" : "");
+}
+
+function agregarAlCarrito() {
+  const v = seleccion.producto, d = seleccion.diseno;
+  if (v === null) return;
+  const nv = productos[v].nombre, nd = d === null ? null : disenos[d].nombre;
+  const ya = carrito.find(it => it.v === nv && it.d === nd);
+  if (ya) ya.n++; else carrito.push({ v: nv, d: nd, n: 1 });
+  seleccion.producto = null;
+  seleccion.diseno = null;
+  pintarTarjetas();
+  pintarPedido();
+  pintarCarrito();
+  aviso("✓ Agregado al carrito");
+}
+
+function cambiarCantidad(i, cambio) {
+  carrito[i].n += cambio;
+  if (carrito[i].n <= 0) carrito.splice(i, 1);
+  pintarCarrito();
+}
+
+function totales() {
+  let total = 0, pendientes = false, cantidad = 0;
+  carrito.forEach(it => {
+    cantidad += it.n;
+    const pr = precioUnit(it);
+    if (pr === null) pendientes = true; else total += pr * it.n;
+  });
+  return { total, pendientes, cantidad };
+}
+
+function pintarCarrito() {
+  const { total, pendientes, cantidad } = totales();
+  $("contadorCarrito").textContent = cantidad;
+  $("totalCarrito").textContent = pesos.format(total) + (pendientes ? " + por confirmar" : "");
+  $("vaciarCarrito").disabled = $("pedirCarrito").disabled = cantidad === 0;
+
+  $("listaCarrito").innerHTML = carrito.length === 0
+    ? '<li class="carrito-vacio">Tu carrito está vacío. Elige una vela y un diseño para empezar.</li>'
+    : carrito.map((it, i) => {
+        const pr = precioUnit(it);
+        return '<li class="item-carrito">' +
+          '<div><p class="item-nombre">' + it.v + '</p>' +
+          '<p class="item-diseno">Diseño: ' + (it.d ? textoDiseno(it) : "sin elegir") + '</p>' +
+          '<p class="item-subtotal">' + (pr === null ? "Precio por confirmar" : pesos.format(pr * it.n)) + '</p></div>' +
+          '<div class="cantidad">' +
+            '<button data-c="' + i + '" data-d="-1" aria-label="Quitar una unidad">−</button>' +
+            '<span>' + it.n + '</span>' +
+            '<button data-c="' + i + '" data-d="1" aria-label="Agregar una unidad">+</button>' +
+          '</div>' +
+          '<button class="boton-quitar" data-q="' + i + '">Quitar</button>' +
+          '</li>';
+      }).join("");
+  guardarCarrito();
+}
+
+$("listaCarrito").addEventListener("click", e => {
+  const c = e.target.closest("button[data-c]");
+  const q = e.target.closest("button[data-q]");
+  if (c) cambiarCantidad(Number(c.dataset.c), Number(c.dataset.d));
+  if (q) { carrito.splice(Number(q.dataset.q), 1); pintarCarrito(); }
+});
+$("vaciarCarrito").onclick = () => { carrito = []; pintarCarrito(); };
+
+/* ---------- Panel del carrito ---------- */
+function abrirCarrito() {
+  $("panelCarrito").hidden = false;
+  $("fondo").hidden = false;
+  $("botonCarrito").setAttribute("aria-expanded", "true");
+  $("cerrarCarrito").focus();
+}
+function cerrarCarrito() {
+  $("panelCarrito").hidden = true;
+  $("fondo").hidden = true;
+  $("botonCarrito").setAttribute("aria-expanded", "false");
+  $("botonCarrito").focus();
+}
+$("botonCarrito").onclick = abrirCarrito;
+$("cerrarCarrito").onclick = cerrarCarrito;
+$("fondo").onclick = cerrarCarrito;
+
+/* ---------- Aviso breve ---------- */
+let tAviso;
+function aviso(texto) {
+  const a = $("aviso");
+  a.textContent = texto;
+  a.classList.add("visible");
+  clearTimeout(tAviso);
+  tAviso = setTimeout(() => a.classList.remove("visible"), 2000);
+}
+
+/* ============================================================
+   TARJETAS
+   ============================================================ */
 function tarjeta(p, i, t) {
   const elegida = seleccion[t] === i;
+  const precio = t === "producto"
+    ? '<p class="precio">' + (p.precio === null ? "Precio por confirmar" : pesos.format(p.precio)) + '</p>' : '';
+  const extra = t === "diseno" && p.extra
+    ? '<p class="precio">+ ' + pesos.format(p.extra) + ' adicional</p>' : '';
   return '<div class="product ' + (t === "diseno" ? "tarjeta-diseno " : "") + (elegida ? "elegida" : "") + '">' +
     (elegida ? '<span class="insignia">✓ Elegido</span>' : '') +
     '<h3>' + p.nombre + '</h3>' +
     '<img src="' + p.imgs[0] + '" alt="' + p.nombre + '" class="producto" loading="lazy">' +
+    precio + extra +
     '<button data-t="' + t + '" data-i="' + i + '">ver información</button>' +
     '</div>';
 }
@@ -132,18 +283,21 @@ function pintarTarjetas() {
 function pintarPedido() {
   const v = seleccion.producto, d = seleccion.diseno;
   $("pVela").textContent = v === null ? "sin elegir" : productos[v].nombre;
-  $("pDiseno").textContent = d === null ? "sin elegir" : disenos[d].nombre;
+  $("pDiseno").textContent = d === null ? "sin elegir" : disenos[d].nombre +
+    (disenos[d].extra ? " (+" + pesos.format(disenos[d].extra) + ")" : "");
   $("pedido").hidden = v === null && d === null;
+  $("agregar").disabled = v === null;
   document.body.classList.toggle("con-pedido", !$("pedido").hidden);
 }
-pintarTarjetas();
 
 document.addEventListener("click", e => {
   const b = e.target.closest("button[data-t]");
   if (b) abrir(b.dataset.t, Number(b.dataset.i));
 });
 
-/* ---------- Ventana ---------- */
+/* ============================================================
+   VENTANA DE INFORMACIÓN
+   ============================================================ */
 function abrir(t, i) {
   tipo = t;
   actualI = i;
@@ -157,7 +311,6 @@ function abrir(t, i) {
   $("modal").classList.add("abierto");
   document.body.style.overflow = "hidden";
 }
-
 function pintarFotos() {
   $("grande").src = actual.imgs[sel];
   $("grande").alt = actual.nombre;
@@ -166,32 +319,32 @@ function pintarFotos() {
     '<button data-k="' + k + '" aria-label="Ver foto ' + (k + 1) + '"><img src="' + src + '" alt=""></button>'
   ).join("");
 }
-
 $("miniaturas").addEventListener("click", e => {
   const b = e.target.closest("button[data-k]");
   if (b) { sel = Number(b.dataset.k); pintarFotos(); }
 });
-
 function cerrar() {
   $("modal").classList.remove("abierto");
   document.body.style.overflow = "";
 }
 $("cerrar").onclick = cerrar;
 $("modal").addEventListener("click", e => { if (e.target.id === "modal") cerrar(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") cerrar(); });
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (!$("panelCarrito").hidden) cerrarCarrito(); else cerrar();
+});
 
-/* ---------- Elegir ---------- */
+/* Elegir desde la ventana */
 $("pedir").onclick = () => {
   seleccion[tipo] = actualI;
   cerrar();
   pintarTarjetas();
   pintarPedido();
-  // Si falta la otra parte del pedido, llevar a esa sección
   const falta = tipo === "producto" ? (seleccion.diseno === null ? "sec-disenos" : null)
                                     : (seleccion.producto === null ? "sec-cajas" : null);
   if (falta) $(falta).scrollIntoView({ behavior: "smooth", block: "start" });
 };
-
+$("agregar").onclick = agregarAlCarrito;
 $("limpiar").onclick = () => {
   seleccion.producto = null;
   seleccion.diseno = null;
@@ -199,11 +352,23 @@ $("limpiar").onclick = () => {
   pintarPedido();
 };
 
-/* ---------- WhatsApp ---------- */
-$("enviar").onclick = () => {
-  const v = seleccion.producto, d = seleccion.diseno;
-  let msg = "Hola, me interesa:";
-  if (v !== null) msg += "\n• Vela: " + productos[v].nombre;
-  if (d !== null) msg += "\n• Diseño: " + disenos[d].nombre;
+/* ============================================================
+   WHATSAPP: pedido completo
+   ============================================================ */
+$("pedirCarrito").onclick = () => {
+  const { total, pendientes } = totales();
+  let msg = "Hola, quiero hacer este pedido:\n";
+  carrito.forEach(it => {
+    const pr = precioUnit(it);
+    msg += "\n• " + it.n + " x " + it.v +
+           (it.d ? " — Diseño: " + textoDiseno(it) : "") +
+           (pr === null ? " (precio por confirmar)" : " — " + pesos.format(pr * it.n));
+  });
+  msg += "\n\nTotal: " + pesos.format(total) + (pendientes ? " + productos por confirmar" : "");
   window.open("https://wa.me/573054756421?text=" + encodeURIComponent(msg), "_blank");
 };
+
+/* ---------- Inicio ---------- */
+pintarTarjetas();
+pintarPedido();
+pintarCarrito();
