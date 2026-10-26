@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo velas 2026</title>
+    <link rel="stylesheet" href="velas.css">
+</head>
+<body>
+    <header class="titulo">
+        <h1>Catálogo velas 2026</h1>
+    </header>
+
+    <div class="barra-carrito">
+        <button id="botonCarrito" class="boton-carrito" aria-expanded="false" aria-controls="panelCarrito">
+            🛒 Carrito: <span id="contadorCarrito">0</span>
+        </button>
+    </div>
+
+    <!-- Cajas de velas -->
+    <section class="contenedor" id="sec-cajas" aria-labelledby="t-cajas">
+        <h2 class="seccion-titulo" id="t-cajas">Cajas de velas</h2>
+        <div id="productos" class="rejilla"></div>
+    </section>
+
+    <!-- Diseños -->
+    <section class="contenedor" id="sec-disenos" aria-labelledby="t-disenos">
+        <h2 class="seccion-titulo" id="t-disenos">Diseños</h2>
+        <p class="seccion-sub">Escoge el diseño que más te guste para tu caja de velas.</p>
+        <div id="disenos" class="rejilla"></div>
+    </section>
+
+    <!-- Ventana con la información -->
+    <div id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitulo">
+        <div class="ventana">
+            <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
+            <img id="grande" alt="">
+            <div class="miniaturas" id="miniaturas"></div>
+            <h2 id="mTitulo"></h2>
+            <div id="mDesc"></div>
+            <ul id="mLista"></ul>
+            <button class="pedir" id="pedir">Elegir esta vela</button>
+        </div>
+    </div>
+
+    <!-- Barra de selección actual -->
+    <div id="pedido" class="pedido" hidden>
+        <div class="pedido-datos">
+            <div><b>Vela:</b> <span id="pVela"></span></div>
+            <div><b>Diseño:</b> <span id="pDiseno"></span></div>
+        </div>
+        <div class="pedido-botones">
+            <button id="limpiar" class="secundario">Borrar</button>
+            <button id="agregar" class="pedir">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <div id="fondo" class="fondo" hidden></div>
+    <aside id="panelCarrito" class="panel-carrito" aria-label="Carrito de compras" hidden>
+        <div class="panel-encabezado">
+            <h2>Tu carrito</h2>
+            <button id="cerrarCarrito" class="boton-cerrar" aria-label="Cerrar carrito">&times;</button>
+        </div>
+        <ul id="listaCarrito" class="lista-carrito"></ul>
+        <div class="panel-pie">
+            <p class="total">Total <strong id="totalCarrito">$0</strong></p>
+            <button id="pedirCarrito" class="pedir">Pedir por WhatsApp</button>
+            <button id="vaciarCarrito" class="secundario">Vaciar carrito</button>
+        </div>
+    </aside>
+
+    <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
