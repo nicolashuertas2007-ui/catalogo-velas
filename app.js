@@ -15,13 +15,13 @@ const productos = [
   {
     nombre: "Vela baby blanca x 10 (caja roja)",
     desc: ["Caja roja de 10 velas baby blancas.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela baby blanca", "$19.000"],
+    detalles: ["Presentación: caja x 10 velas", "Vela baby blanca", "$18.000"],
     imgs: ["img/rojababy3.png", "img/rojababy.png", "img/rojababy2.png"]
   },
   {
     nombre: "Vela baby pastel x 10 (caja dorada)",
     desc: ["Caja dorada de 10 velas baby en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela baby pastel", "$19.000"],
+    detalles: ["Presentación: caja x 10 velas", "Vela baby pastel", "$18.000"],
     imgs: ["img/doradababy3.png", "img/doradababy.png", "img/doradababy2.png"]
   },
   {
@@ -75,11 +75,8 @@ const disenos = [
   },
   {
     nombre: "Pesebre dorado",
-    extra: 1000,
-    desc: ["Personajes del pesebre en línea dorada.",
-           "Tiene un valor adicional de $1.000 porque son con relieve."],
-    detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud",
-                "Valor adicional: $1.000 (por caja)"],
+    desc: ["Personajes del pesebre en línea dorada."],
+    detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud"],
     imgs: ["img/pesebredorado.png"]
   },
   {
@@ -102,11 +99,8 @@ const disenos = [
   },
   {
     nombre: "Deseos dorados",
-    extra: 1000,
-    desc: ["Deseos en dorado con corazones y estrellas.",
-           "Tiene un valor adicional de $1.000 porque son con relieve."],
-    detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría",
-               "Valor adicional: $1.000 (por caja)"],
+    desc: ["Deseos en dorado con corazones y estrellas."],
+    detalles: ["Palabras: Éxitos, Bendiciones, Dinero, Trabajo, Abundancia, Dios, Salud, Amor, Familia, Sabiduría"],
     imgs: ["img/deseosdorados.png"]
   },
   {
