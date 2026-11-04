@@ -360,6 +360,12 @@ $("pedirCarrito").onclick = () => {
   });
   msg += "\n\nTotal: " + pesos.format(total) + (pendientes ? " + productos por confirmar" : "");
   window.open("https://wa.me/573054756421?text=" + encodeURIComponent(msg), "_blank");
+
+  // Pedido enviado: se vacía el carrito y se cierra el panel
+  carrito = [];
+  pintarCarrito();
+  cerrarCarrito();
+  aviso("✓ Pedido enviado por WhatsApp");
 };
 
 /* ---------- Inicio ---------- */
