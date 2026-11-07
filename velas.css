@@ -338,3 +338,19 @@ body.con-pedido{ padding-bottom: 130px; }
     opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s;
 }
 .aviso.visible{ opacity: 1; transform: translate(-50%, 0); }
+
+/* ===== Contacto visible ===== */
+.contacto{ margin: 8px 0 0; font-size: 1rem; }
+.contacto a{ color: #fff; font-weight: bold; text-decoration: underline; }
+.pie{
+    position: relative; z-index: 6;
+    margin: 0 4% 30px; padding: 14px 16px;
+    text-align: center; color: #fff;
+    background: rgba(0,0,0,.25); border-radius: 12px;
+}
+.pie p{ margin: 0; }
+.pie a{ color: var(--dorado); font-weight: bold; font-size: 1.1rem; text-decoration: none; white-space: nowrap; }
+.pie a:hover{ text-decoration: underline; }
+
+/* Sección con una sola tarjeta (Velas) */
+.rejilla-una{ grid-template-columns: minmax(240px, 380px); justify-content: center; }

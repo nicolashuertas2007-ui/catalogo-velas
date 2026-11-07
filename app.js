@@ -111,6 +111,19 @@ const disenos = [
   }
 ];
 
+/* ============================================================
+   INFORMACIÓN (solo para observar, sin botón de agregar)
+   ============================================================ */
+const informacion = [
+  {
+    nombre: "Velas",
+    desc: ["Aquí puedes observar la diferencia de nuestras velas."],
+    detalles: ["Vela colombiana: altura 15 cm x 1,6 cm de diámetro",
+               "Vela baby: altura 10,5 cm x 2,2 cm de diámetro"],
+    imgs: ["img/velas.png"]
+  }
+];
+
 /* Precio: se toma de la línea "$9.500" dentro de detalles (si no hay, queda "por confirmar") */
 productos.forEach(p => {
   const linea = p.detalles.find(d => /^\$/.test(d));
@@ -273,6 +286,7 @@ function tarjeta(p, i, t) {
 function pintarTarjetas() {
   $("productos").innerHTML = productos.map((p, i) => tarjeta(p, i, "producto")).join("");
   $("disenos").innerHTML = disenos.map((p, i) => tarjeta(p, i, "diseno")).join("");
+  $("info").innerHTML = informacion.map((p, i) => tarjeta(p, i, "info")).join("");
 }
 function pintarPedido() {
   const v = seleccion.producto, d = seleccion.diseno;
@@ -295,7 +309,8 @@ document.addEventListener("click", e => {
 function abrir(t, i) {
   tipo = t;
   actualI = i;
-  actual = (t === "diseno" ? disenos : productos)[i];
+  actual = (t === "diseno" ? disenos : t === "info" ? informacion : productos)[i];
+  $("pedir").hidden = t === "info";   // "info" es solo para observar
   sel = 0;
   $("mTitulo").textContent = actual.nombre;
   $("mDesc").innerHTML = actual.desc.map(d => "<p>" + d + "</p>").join("");
@@ -360,12 +375,6 @@ $("pedirCarrito").onclick = () => {
   });
   msg += "\n\nTotal: " + pesos.format(total) + (pendientes ? " + productos por confirmar" : "");
   window.open("https://wa.me/573054756421?text=" + encodeURIComponent(msg), "_blank");
-
-  // Pedido enviado: se vacía el carrito y se cierra el panel
-  carrito = [];
-  pintarCarrito();
-  cerrarCarrito();
-  aviso("✓ Pedido enviado por WhatsApp");
 };
 
 /* ---------- Inicio ---------- */
