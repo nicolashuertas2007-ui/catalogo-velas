@@ -1,8 +1,3 @@
-/* ============================================================
-   CAJAS DE VELAS
-   Las fotos del mismo producto van juntas en imgs.
-   La primera foto es la que se ve en la tarjeta.
-   ============================================================ */
 const EXTRA = "Puedes escoger cualquiera de nuestros diseños para decorarlas.";
 
 const productos = [
@@ -19,28 +14,22 @@ const productos = [
     imgs: ["img/rojababy3.png", "img/rojababy.png", "img/rojababy2.png"]
   },
   {
-    nombre: "Vela baby pastel x 10 (caja dorada)",
-    desc: ["Caja dorada de 10 velas baby en colores pastel.", EXTRA],
+    nombre: "Vela baby pastel x 10 (caja roja)",
+    desc: ["Caja roja de 10 velas baby en colores pastel.", EXTRA],
     detalles: ["Presentación: caja x 10 velas", "Vela baby pastel", "$18.000"],
-    imgs: ["img/doradababy3.png", "img/doradababy.png", "img/doradababy2.png"]
+    imgs: ["img/rojababypastel.png","img/doradababy.png","img/rojababy2.png"]
   },
   {
-    nombre: "Vela colombiana blanca x 10 (caja roja)",
-    desc: ["Caja roja de 10 velas colombianas blancas.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana blanca", "$16.000"],
-    imgs: ["img/rojacolombiana2.png", "img/rojacolombiana.png", "img/rojacolombiana3.png"]
+    nombre: "Vela colombiana pastel x 10 (caja roja)",
+    desc: ["Caja roja de 10 velas colombianas pastel.", EXTRA],
+    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel", "$16.000"],
+    imgs: ["img/rojacolombianapastel2.png", "img/virgencolombiana.png", "img/rojacolombiana3.png"]
   },
   {
-    nombre: "Vela colombiana blanca x 10 (caja juguetería)",
+    nombre: "Vela colombiana blanca x 10 (caja juegueteria)",
     desc: ["Caja dorada con juguetes, 10 velas colombianas blancas.", EXTRA],
     detalles: ["Presentación: caja x 10 velas", "Vela colombiana blanca", "$16.000"],
     imgs: ["img/jugueteriacolombiana2.png", "img/jugueteriacolombiana.png", "img/jugueteriacolombiana3.png"]
-  },
-  {
-    nombre: "Vela colombiana pastel x 10 (Virgen del Carmen)",
-    desc: ["Caja Virgen del Carmen con 10 velas colombianas en colores pastel.", EXTRA],
-    detalles: ["Presentación: caja x 10 velas", "Vela colombiana pastel", "$16.000"],
-    imgs: ["img/virgencolombiana3.png", "img/virgencolombiana.png", "img/virgencolombiana2.png"]
   }
 ];
 
@@ -78,12 +67,6 @@ const disenos = [
     desc: ["Personajes del pesebre en línea dorada."],
     detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud"],
     imgs: ["img/pesebredorado.png"]
-  },
-  {
-    nombre: "Vírgenes",
-    desc: ["Advocaciones de la Virgen sobre trazos de colores."],
-    detalles: ["Palabras: Sabiduría, Éxitos, Unión, Viajes, Salud, Prosperidad, Felicidad, Abundancia, Amor, Trabajo"],
-    imgs: ["img/virgenes.png"]
   },
   {
     nombre: "BTS",
