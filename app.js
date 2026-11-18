@@ -63,12 +63,6 @@ const disenos = [
     imgs: ["img/pesebre.png"]
   },
   {
-    nombre: "Pesebre dorado",
-    desc: ["Personajes del pesebre en línea dorada."],
-    detalles: ["Palabras: Dinero, Abundancia, Trabajo, Bienestar, Familia, Felicidad, Bendiciones, Dios, Amor, Salud"],
-    imgs: ["img/pesebredorado.png"]
-  },
-  {
     nombre: "BTS",
     desc: ["Personajes BT21 con palabras de deseos en trazos de colores."],
     detalles: ["Palabras: Abundancia, Amor, Amistad, Sabiduría, Éxitos, Dinero, Viajes, Salud, Prosperidad, Felicidad"],
